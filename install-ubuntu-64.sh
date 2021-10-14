@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Exit script when something fails
+set -e
+
 daemonname="deskpi"
 tempmonscript=/usr/bin/pmwFanControl
 deskpidaemon=/lib/systemd/system/$daemonname.service
