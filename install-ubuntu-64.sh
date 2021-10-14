@@ -1,6 +1,4 @@
 #!/bin/bash
-# 
-. /lib/lsb/init-functions
 
 daemonname="deskpi"
 tempmonscript=/usr/bin/pmwFanControl
@@ -17,9 +15,9 @@ if [ -e $deskpidaemon ]; then
 	sudo rm -f $deskpidaemon
 fi
 
-# adding dtoverlay to enable dwc2 on host mode.
-sudo sed -i '/dtoverlay=dwc2*/d' /boot/firmware/config.txt 
-sudo sed -i '$a\dtoverlay=dwc2,dr_mode=host' /boot/firmware/config.txt 
+# remove dtoverlay from ubuntu and add it to usercfg config file.
+sudo sed -i '/dtoverlay=dwc2/d' /boot/firmware/config.txt 
+echo "dtoverlay=dwc2,dr_mode=host" | sudo tee /boot/firmware/usercfg.txt
 
 # install PWM fan control daemon.
 log_action_msg "DeskPi main control service loaded."
