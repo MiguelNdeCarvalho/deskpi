@@ -18,7 +18,10 @@ if [ -e $deskpidaemon ]; then
 	sudo rm -f $deskpidaemon
 fi
 
-# remove dtoverlay from ubuntu and add it to usercfg config file.
+# Check if GCC is installed
+type gcc >/dev/null 2>&1 || { echo >&2 "It is required to have GCC installed."; exit 1; }
+
+# Remove dtoverlay from ubuntu and add it to usercfg config file.
 sudo sed -i '/dtoverlay=dwc2/d' /boot/firmware/config.txt 
 echo "dtoverlay=dwc2,dr_mode=host" | sudo tee /boot/firmware/usercfg.txt
 
